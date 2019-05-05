@@ -1,52 +1,73 @@
+import { parse } from "./parser";
 import { getChar, putChar } from "./lib";
 
+const BUFFER_SIZE = 65536; // 64 KiB
+let buffer = new Uint8Array(BUFFER_SIZE);
+
+function increaseBufferSize() {
+  const newBuffer = new Uint8Array(buffer.byteLength + BUFFER_SIZE);
+  newBuffer.set(buffer);
+  buffer = newBuffer;
+}
+
+let pointer = 0;
+
 const commands = {
-  ">"() {
-    // TODO
-    process.stdout.write(">");
+  Program(nodes) {
+    nodes.forEach(run);
   },
 
-  "<"() {
-    // TODO
-    process.stdout.write("<");
+  IncrPointer() {
+    pointer++;
+    if (pointer >= buffer.byteLength) {
+      increaseBufferSize();
+    }
   },
 
-  "+"() {
-    // TODO
-    process.stdout.write("+");
+  DecrPointer() {
+    pointer--;
+    if (pointer < 0) {
+      pointer += buffer.byteLength;
+    }
   },
 
-  "-"() {
-    // TODO
-    process.stdout.write("-");
+  Increment() {
+    buffer[pointer]++;
   },
 
-  "."() {
-    // TODO
-    process.stdout.write(".");
+  Decrement() {
+    buffer[pointer]--;
   },
 
-  ","() {
-    // TODO
-    process.stdout.write(",");
+  GetChar() {
+    buffer[pointer] = getChar();
   },
 
-  "["() {
-    // TODO
-    process.stdout.write("[");
+  PutChar() {
+    putChar(buffer[pointer]);
   },
 
-  "]"() {
-    // TODO
-    process.stdout.write("]");
-  },
-};
+  Loop(nodes) {
+    if (!buffer[pointer]) return;
 
-export function interpret(code) {
-  for (const c of code) {
-    const command = commands[c];
-    if (command) {
-      command();
+    let idx = 0;
+    while (idx < nodes.length) {
+      run(nodes[idx]);
+
+      if (idx === nodes.length - 1 && buffer[pointer]) {
+        idx = 0;
+      } else {
+        idx++;
+      }
     }
   }
+};
+
+function run(node) {
+  commands[node.type](node.data);
+}
+
+export function interpret(code) {
+  const program = parse(code);
+  run(program);
 }
