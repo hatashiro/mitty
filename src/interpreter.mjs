@@ -1,4 +1,5 @@
 import { parse } from "./parser";
+import { optimize } from "./optimizer";
 import { getChar, putChar } from "./lib";
 
 const BUFFER_SIZE = 65536; // 64 KiB
@@ -35,6 +36,14 @@ const commands = {
     buffer[pointer] += diff;
   },
 
+  Zero() {
+    buffer[pointer] = 0;
+  },
+
+  Mul({ pointerDiff, valueDiff }) {
+    buffer[pointer + pointerDiff] += buffer[pointer] * valueDiff;
+  },
+
   GetChar() {
     buffer[pointer] = getChar();
   },
@@ -64,6 +73,6 @@ function run(node) {
 }
 
 export function interpret(code) {
-  const program = parse(code);
+  const program = optimize(parse(code));
   run(program);
 }

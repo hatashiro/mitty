@@ -1,18 +1,7 @@
 import { Stack } from "./stack";
 
-const pos = [1, 1];
-
-function node(type, data = null) {
+export function node(type, pos, data = null) {
   return { type, data, pos: [...pos] };
-}
-
-function processPos(c) {
-  if (c === "\n") {
-    pos[0]++;
-    pos[1] = 1;
-  } else {
-    pos[1]++;
-  }
 }
 
 export function parse(code) {
@@ -20,26 +9,33 @@ export function parse(code) {
 
   stack.push([]); // top-level sequence
 
+  const pos = [1, 1];
+
   for (const c of code) {
     if (c === ">" || c === "<") {
-      stack.top.push(node("Pointer", c === ">" ? 1 : -1));
+      stack.top.push(node("Pointer", pos, c === ">" ? 1 : -1));
     } else if (c === "+" || c === "-") {
-      stack.top.push(node("Value", c === "+" ? 1 : -1));
+      stack.top.push(node("Value", pos, c === "+" ? 1 : -1));
     } else if (c === ".") {
-      stack.top.push(node("PutChar"));
+      stack.top.push(node("PutChar", pos));
     } else if (c === ",") {
-      stack.top.push(node("GetChar"));
+      stack.top.push(node("GetChar", pos));
     } else if (c === "[") {
       stack.push([]);
     } else if (c === "]") {
       const data = stack.pop();
-      stack.top.push(node("Loop", data));
+      stack.top.push(node("Loop", pos, data));
     } else {
       // ignore comments and white spaces
     }
 
-    processPos(c);
+    if (c === "\n") {
+      pos[0]++;
+      pos[1] = 1;
+    } else {
+      pos[1]++;
+    }
   }
 
-  return node("Program", stack.top);
+  return node("Program", [1, 1], stack.top);
 }
