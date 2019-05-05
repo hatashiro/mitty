@@ -2,10 +2,10 @@ import { parse } from "./parser";
 import { getChar, putChar } from "./lib";
 
 const BUFFER_SIZE = 65536; // 64 KiB
-let buffer = new Uint8Array(BUFFER_SIZE);
+let buffer = new Uint32Array(BUFFER_SIZE);
 
 function increaseBufferSize() {
-  const newBuffer = new Uint8Array(buffer.byteLength + BUFFER_SIZE);
+  const newBuffer = new Uint32Array(buffer.byteLength + BUFFER_SIZE);
   newBuffer.set(buffer);
   buffer = newBuffer;
 }
