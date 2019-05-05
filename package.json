@@ -1,0 +1,23 @@
+{
+  "name": "mitty",
+  "version": "0.1.0",
+  "description": "A Brain*uck to WASM compiler",
+  "homepage": "https://github.com/utatti/mitty",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utatti/mitty.git"
+  },
+  "keywords": [
+    "brainfuck",
+    "wasm"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo no test yet"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "license": "MIT"
+}
