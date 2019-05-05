@@ -278,7 +278,7 @@ loop stops at 1
 
         Delete the junk
         {4} > [-] >> [-]
-        
+
         Move the old modulus to the dividend cell (4)
         {7} <<<< [ - >+ < ]
 
@@ -356,7 +356,7 @@ loop stops at 1
 
 Remember to do another decrement to match the inc we do at the loop start
 {1} - ]
-        
+
 
 === PRINTING ===
 
