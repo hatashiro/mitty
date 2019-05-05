@@ -1,9 +1,14 @@
+import { promises as afs } from "fs";
 import { interpret } from "./src/interpreter";
 
 const commands = {
-  interpret(path) {
-    // TODO
-    interpret(path);
+  async interpret(path) {
+    if (!path) {
+      throw new Error(`No input file is specified.`);
+    }
+
+    const content = await afs.readFile(path, "utf-8");
+    interpret(content);
   },
 
   compile(path) {
