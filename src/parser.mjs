@@ -15,23 +15,20 @@ function processPos(c) {
   }
 }
 
-const simpleCommands = {
-  ">": "IncrPointer",
-  "<": "DecrPointer",
-  "+": "Increment",
-  "-": "Decrement",
-  ".": "PutChar",
-  ",": "GetChar"
-};
-
 export function parse(code) {
   const stack = new Stack();
 
   stack.push([]); // top-level sequence
 
   for (const c of code) {
-    if (simpleCommands[c]) {
-      stack.top.push(node(simpleCommands[c]));
+    if (c === ">" || c === "<") {
+      stack.top.push(node("Pointer", c === ">" ? 1 : -1));
+    } else if (c === "+" || c === "-") {
+      stack.top.push(node("Value", c === "+" ? 1 : -1));
+    } else if (c === ".") {
+      stack.top.push(node("PutChar"));
+    } else if (c === ",") {
+      stack.top.push(node("GetChar"));
     } else if (c === "[") {
       stack.push([]);
     } else if (c === "]") {

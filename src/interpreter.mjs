@@ -17,26 +17,22 @@ const commands = {
     nodes.forEach(run);
   },
 
-  IncrPointer() {
-    pointer++;
-    if (pointer >= buffer.byteLength) {
+  Pointer(diff) {
+    pointer += diff;
+
+    while (pointer >= buffer.byteLength) {
       increaseBufferSize();
     }
-  },
 
-  DecrPointer() {
-    pointer--;
     if (pointer < 0) {
-      pointer += buffer.byteLength;
+      const n = pointer;
+      const m = buffer.byteLength;
+      pointer = ((n % m) + m) % m; // positive modulo
     }
   },
 
-  Increment() {
-    buffer[pointer]++;
-  },
-
-  Decrement() {
-    buffer[pointer]--;
+  Value(diff) {
+    buffer[pointer] += diff;
   },
 
   GetChar() {
