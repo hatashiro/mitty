@@ -12,12 +12,15 @@
     "wasm"
   ],
   "main": "index.js",
+  "module": "main.mjs",
   "scripts": {
-    "format": "prettier --write '**/*.{json,js}'",
-    "format:check": "prettier --check '**/*.{json,js}'",
+    "format": "prettier --write '**/*.{json,js,mjs}'",
+    "format:check": "prettier --check '**/*.{json,js,mjs}'",
     "test": "npm run format:check"
   },
-  "dependencies": {},
+  "dependencies": {
+    "esm": "^3.2.22"
+  },
   "devDependencies": {
     "prettier": "^1.17.0"
   },
