@@ -1,10 +1,10 @@
-const fs = require('fs');
+const fs = require("fs");
 
 if (process.stdin.setRawMode) {
   process.stdin.setRawMode(true);
 }
 
-const f = fs.openSync('/dev/stdin', 0);
+const f = fs.openSync("/dev/stdin", 0);
 
 export function getChar() {
   const b = Buffer.alloc(1);
