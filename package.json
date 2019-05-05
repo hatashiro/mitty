@@ -16,7 +16,8 @@
   "scripts": {
     "format": "prettier --write '**/*.{json,js,mjs}'",
     "format:check": "prettier --check '**/*.{json,js,mjs}'",
-    "test": "npm run format:check"
+    "test:interpreter": "node test interpreter",
+    "test": "npm run format:check && npm run test:interpreter"
   },
   "dependencies": {
     "esm": "^3.2.22"
