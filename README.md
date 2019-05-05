@@ -9,11 +9,17 @@ Mitty is a [Brain*uck](https://en.wikipedia.org/wiki/Brainfuck) to
 
 TBD
 
+## Test cases
+
+The test cases in the [/test](test) directory are copied from the following
+repository. They have their own licensing.
+
+- https://github.com/rdebath/Brainfuck.
+
 ## References
 
 - [WebAssembly Specification](https://webassembly.github.io/spec/core/index.html)
 - [Brainfuck Optimization Strategies](http://calmerthanyouare.org/2015/01/07/optimizing-brainfuck.html) by Mats Linander
-- https://github.com/rdebath/Brainfuck
 
 ## License
 
