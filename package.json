@@ -13,11 +13,13 @@
   ],
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write '**/*.{json,js}'",
+    "format:check": "prettier --check '**/*.{json,js}'",
     "test": "echo no test yet"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "prettier": "^1.17.0"
   },
   "license": "MIT"
 }
