@@ -1,12 +1,14 @@
+import tmp from "tmp";
 import { execSync } from "child_process";
-import { fileSync } from "tmp";
-import { resolve } from "path";
+import { dirname, resolve } from "path";
 import { writeFileSync, readFileSync } from "fs";
 
-const tempFile = ext => fileSync({ mode: 0o644, postfix: `.${ext}` }).name;
+const tempFile = ext => tmp.fileSync({ mode: 0o644, postfix: `.${ext}` }).name;
+
+const root = resolve(dirname(new URL(import.meta.url).pathname), "..");
 
 const bin = {
-  wat2wasm: resolve(new URL(import.meta.url).pathname, "../wabt/bin/wat2wasm")
+  wat2wasm: resolve(root, "wabt/bin/wat2wasm")
 };
 
 export function wat2wasm(watStr) {
