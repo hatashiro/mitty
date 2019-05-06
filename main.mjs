@@ -1,6 +1,7 @@
 import { promises as afs } from "fs";
 import { interpret } from "./src/interpreter";
 import { compile } from "./src/compiler";
+import { exec } from "./src/exec";
 
 const commands = {
   async interpret(path) {
@@ -25,6 +26,15 @@ const commands = {
     } else {
       console.log(wat);
     }
+  },
+
+  async exec(input) {
+    if (!input) {
+      throw new Error(`No input file is specified.`);
+    }
+
+    const content = await afs.readFile(input);
+    exec(content);
   }
 };
 
