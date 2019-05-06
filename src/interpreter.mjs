@@ -1,78 +1,86 @@
 import { parse } from "./parser";
 import { optimize } from "./optimizer";
-import { getChar, putChar } from "./lib";
+import * as io from "./io";
 
 const BUFFER_SIZE = 65536; // 64 KiB
-let buffer = new Uint32Array(BUFFER_SIZE);
 
-function increaseBufferSize() {
-  const newBuffer = new Uint32Array(buffer.byteLength + BUFFER_SIZE);
-  newBuffer.set(buffer);
-  buffer = newBuffer;
-}
+class Interpreter {
+  buffer = new Uint32Array(BUFFER_SIZE);
+  pointer = 0;
 
-let pointer = 0;
+  run = node => {
+    this[node.type](node.data);
+  };
 
-const commands = {
+  constructor(lib) {
+    this.lib = lib;
+  }
+
+  increaseBufferSize() {
+    const buffer = new Uint32Array(this.buffer.byteLength + BUFFER_SIZE);
+    buffer.set(this.buffer);
+    this.buffer = buffer;
+  }
+
   Program(nodes) {
-    nodes.forEach(run);
-  },
+    nodes.forEach(this.run);
+  }
 
   Pointer(diff) {
-    pointer += diff;
+    this.pointer += diff;
 
-    while (pointer >= buffer.byteLength) {
+    while (this.pointer >= this.buffer.byteLength) {
       increaseBufferSize();
     }
 
-    if (pointer < 0) {
-      const n = pointer;
-      const m = buffer.byteLength;
-      pointer = ((n % m) + m) % m; // positive modulo
+    if (this.pointer < 0) {
+      const n = this.pointer;
+      const m = this.buffer.byteLength;
+      this.pointer = ((n % m) + m) % m; // positive modulo
     }
-  },
+  }
 
   Value(diff) {
-    buffer[pointer] += diff;
-  },
+    this.buffer[this.pointer] += diff;
+  }
 
   Zero() {
-    buffer[pointer] = 0;
-  },
+    this.buffer[this.pointer] = 0;
+  }
 
   Mul({ pointerDiff, valueDiff }) {
-    buffer[pointer + pointerDiff] += buffer[pointer] * valueDiff;
-  },
+    this.buffer[this.pointer + pointerDiff] +=
+      this.buffer[this.pointer] * valueDiff;
+  }
 
   GetChar() {
-    buffer[pointer] = getChar();
-  },
+    this.buffer[this.pointer] = this.lib.getChar();
+  }
 
   PutChar() {
-    putChar(buffer[pointer]);
-  },
+    this.lib.putChar(this.buffer[this.pointer]);
+  }
 
   Loop(nodes) {
-    if (!buffer[pointer]) return;
+    if (!this.buffer[this.pointer]) return;
 
     let idx = 0;
     while (idx < nodes.length) {
-      run(nodes[idx]);
+      this.run(nodes[idx]);
 
-      if (idx === nodes.length - 1 && buffer[pointer]) {
+      if (idx === nodes.length - 1 && this.buffer[this.pointer]) {
         idx = 0;
       } else {
         idx++;
       }
     }
   }
-};
-
-function run(node) {
-  commands[node.type](node.data);
 }
 
-export function interpret(code) {
+function run(node) {}
+
+export function interpret(code, lib = io) {
   const program = optimize(parse(code));
-  run(program);
+  const interpreter = new Interpreter(lib);
+  interpreter.run(program);
 }
