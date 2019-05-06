@@ -1,5 +1,6 @@
 import { promises as afs } from "fs";
 import { interpret } from "./src/interpreter";
+import { compile } from "./src/compiler";
 
 const commands = {
   async interpret(path) {
@@ -11,8 +12,19 @@ const commands = {
     interpret(content);
   },
 
-  compile(path) {
-    // TODO
+  async compile(input, output) {
+    if (!input) {
+      throw new Error(`No input file is specified.`);
+    }
+
+    const content = await afs.readFile(input, "utf-8");
+    const { wat, wasm } = compile(content);
+
+    if (output) {
+      await afs.writeFile(output, wasm);
+    } else {
+      console.log(wat);
+    }
   }
 };
 
