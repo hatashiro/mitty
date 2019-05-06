@@ -5,16 +5,27 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
-const TIMEOUT = 1000;
+const TIMEOUT = 20000;
 
 const tests = fs
   .readdirSync(path.join(__dirname, "test"))
   .filter(name => name.endsWith(".b"))
-  .map(name => name.split(".")[0]);
+  .map(name => path.basename(name, ".b"));
+
+const timeoutMap = [];
 
 function dispatch(worker) {
+  clearTimeout(timeoutMap[worker.id]);
+
   if (tests.length) {
-    worker.send(tests.shift());
+    const test = tests.shift();
+
+    timeoutMap[worker.id] = setTimeout(() => {
+      process.stdout.write(`Timeout(${test})`);
+      worker.process.kill();
+    }, TIMEOUT);
+
+    worker.send(test);
   } else {
     worker.kill();
   }
@@ -43,32 +54,22 @@ if (cluster.isMaster) {
         `\nError occurred (${message.test}): ${message.text}\n`
       );
       process.exitCode = 1;
-    } else if (message.type === "timeout") {
-      process.stdout.write(`Timeout(${message.test})`);
     }
   });
   cluster.on("exit", (worker, code) => {
-    if (code) {
+    if (tests.length) {
       cluster.fork();
     }
   });
 } else {
-  const test = require(`./test/test-${process.argv[2]}.mjs`);
+  const test = require(`./test/runner/${process.argv[2]}.mjs`);
   process.on("message", async testName => {
     try {
-      const timeout = setTimeout(() => {
-        process.send({ type: "timeout", test: testName }, () => {
-          process.exit(1);
-        });
-      }, TIMEOUT);
-
       await test.default(
         await readTestFile(testName + ".b"),
         await readTestFile(testName + ".in"),
         await readTestFile(testName + ".out")
       );
-
-      clearTimeout(timeout);
     } catch (err) {
       process.send({ type: "fail", test: testName, text: err.message });
     } finally {
