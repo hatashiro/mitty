@@ -13,29 +13,21 @@ class Compiler {
     return Buffer.alloc(0);
   }
 
-  Program(nodes) {
-  }
+  Program(nodes) {}
 
-  Pointer(diff) {
-  }
+  Pointer(diff) {}
 
-  Value(diff) {
-  }
+  Value(diff) {}
 
-  Zero() {
-  }
+  Zero() {}
 
-  Mul({ pointerDiff, valueDiff }) {
-  }
+  Mul({ pointerDiff, valueDiff }) {}
 
-  GetChar() {
-  }
+  GetChar() {}
 
-  PutChar() {
-  }
+  PutChar() {}
 
-  Loop(nodes) {
-  }
+  Loop(nodes) {}
 }
 
 export function compile(code) {
