@@ -2,7 +2,7 @@ import { parse } from "./parser";
 import { optimize } from "./optimizer";
 import * as io from "./io";
 
-const BUFFER_SIZE = 65536; // 64 KiB
+const BUFFER_SIZE = 65536; // 32 * 64 KiB
 
 class Interpreter {
   buffer = new Uint32Array(BUFFER_SIZE);
@@ -76,8 +76,6 @@ class Interpreter {
     }
   }
 }
-
-function run(node) {}
 
 export function interpret(code, lib = io) {
   const program = optimize(parse(code));
