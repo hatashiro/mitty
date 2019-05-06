@@ -22,7 +22,8 @@
     "postinstall": "npm run build:wabt"
   },
   "dependencies": {
-    "esm": "^3.2.22"
+    "esm": "^3.2.22",
+    "tmp": "^0.1.0"
   },
   "devDependencies": {
     "prettier": "^1.17.0"

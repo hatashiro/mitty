@@ -1,5 +1,6 @@
 import { parse } from "./parser";
 import { optimize } from "./optimizer";
+import { wat2wasm } from "./wabt";
 
 class Compiler {
   wat = "";
@@ -9,8 +10,7 @@ class Compiler {
   };
 
   get wasm() {
-    // TODO
-    return Buffer.alloc(0);
+    return wat2wasm(this.wat);
   }
 
   Program(nodes) {}
