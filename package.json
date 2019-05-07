@@ -1,6 +1,6 @@
 {
   "name": "@utatti/mitty",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Brain*uck to WASM compiler",
   "homepage": "https://github.com/utatti/mitty",
   "repository": {
