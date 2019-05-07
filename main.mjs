@@ -1,4 +1,5 @@
 import { promises as afs } from "fs";
+import { beautify } from "s-exify/module";
 import { interpret } from "./src/interpreter";
 import { compile } from "./src/compiler";
 import { exec } from "./src/exec";
@@ -24,7 +25,7 @@ const commands = {
     if (output) {
       await afs.writeFile(output, wasm);
     } else {
-      console.log(wat);
+      console.log(beautify(wat));
     }
   },
 

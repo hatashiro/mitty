@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "esm": "^3.2.22",
-    "s-exify": "^0.2.1",
+    "s-exify": "^0.3.1",
     "tmp": "^0.1.0"
   },
   "devDependencies": {

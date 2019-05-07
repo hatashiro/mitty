@@ -1,4 +1,3 @@
-import { beautify } from "s-exify/module";
 import { parse } from "./parser";
 import { optimize } from "./optimizer";
 import { wat2wasm } from "./wabt";
@@ -136,7 +135,7 @@ export function compile(code) {
   const program = optimize(parse(code));
   const compiler = new Compiler();
 
-  const wat = beautify(compiler.generate(program));
+  const wat = compiler.generate(program).replace(/\s+/g, " ").trim();
   const wasm = wat2wasm(wat);
 
   return { wat, wasm };
