@@ -34,7 +34,7 @@ const commands = {
     }
 
     const content = await afs.readFile(input);
-    exec(content);
+    await exec(content);
   }
 };
 

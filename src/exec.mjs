@@ -1,5 +1,5 @@
 import * as io from "./io";
 
-export function exec(buffer, lib = io) {
-  WebAssembly.instantiate(buffer, { lib });
+export async function exec(buffer, lib = io) {
+  await WebAssembly.instantiate(buffer, { lib });
 }
