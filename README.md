@@ -20,7 +20,7 @@ TBD
 The test cases in the [/test](test) directory are copied from the following
 repository. They have their own licensing.
 
-- https://github.com/rdebath/Brainfuck.
+- https://github.com/rdebath/Brainfuck
 
 ## References
 
