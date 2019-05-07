@@ -20,7 +20,8 @@
     "format": "prettier --write '**/*.{json,js,mjs}'",
     "format:check": "prettier --check '**/*.{json,js,mjs}'",
     "test:interpreter": "node test interpreter",
-    "test": "npm run format:check && npm run test:interpreter",
+    "test:compiler": "node test compiler",
+    "test": "npm run format:check && npm run test:interpreter && npm run test:compiler",
     "build:wabt": "git submodule update --init && cd wabt && git submodule update --init && make gcc-release",
     "postinstall": "npm run build:wabt"
   },
