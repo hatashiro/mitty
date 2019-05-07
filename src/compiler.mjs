@@ -135,7 +135,10 @@ export function compile(code) {
   const program = optimize(parse(code));
   const compiler = new Compiler();
 
-  const wat = compiler.generate(program).replace(/\s+/g, " ").trim();
+  const wat = compiler
+    .generate(program)
+    .replace(/\s+/g, " ")
+    .trim();
   const wasm = wat2wasm(wat);
 
   return { wat, wasm };
