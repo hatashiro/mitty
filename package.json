@@ -13,6 +13,9 @@
   ],
   "main": "index.js",
   "module": "main.mjs",
+  "bin": {
+    "mitty": "index.js"
+  },
   "scripts": {
     "format": "prettier --write '**/*.{json,js,mjs}'",
     "format:check": "prettier --check '**/*.{json,js,mjs}'",
