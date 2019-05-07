@@ -64,9 +64,7 @@ class Compiler {
           )
 
         (func $main
-          ${
-            nodes.map(this.generate).join("\n")
-          }
+          ${nodes.map(this.generate).join("\n")}
           )
 
         (start $main)
@@ -123,9 +121,7 @@ class Compiler {
         (i32.load)
         (if
           (then
-            ${
-              nodes.map(this.generate).join("\n")
-            }
+            ${nodes.map(this.generate).join("\n")}
             (br 1)
             )
           )
