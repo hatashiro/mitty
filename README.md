@@ -11,9 +11,37 @@ The following requirements should be preinstalled to build WABT.
 
 - [CMake](https://cmake.org/) 3.2 or higher
 
+## Demo
+
+[<img alt="demo" src="https://asciinema.org/a/l4EKz9FWcvNQ02x2QO5lbkdbV.svg" width="480">](https://asciinema.org/a/l4EKz9FWcvNQ02x2QO5lbkdbV)
+
 ## How to use
 
-TBD
+Install:
+
+```
+npm i -g @utatti/mitty
+```
+
+Prepare a Brain*uck code:
+
+```brainfuck
+>++++++++[-<+++++++++>]<.>>+>-[+]++
+>++>+++[>[->+++<<+++>]<<]>-----.>->
++++..+++.>-.<<+[>[+>+]>>]<---------
+-----.>>.+++.------.--------.>+.>+.
+```
+
+Run `mitty`:
+
+```bash
+# JavaScript interpreter
+mitty interpret hello.b
+
+# WASM compiler
+mitty compile hello.b hello.wasm
+mitty exec hello.wasm
+```
 
 ## Test cases
 
