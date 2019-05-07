@@ -102,7 +102,9 @@ class Compiler {
 
   GetChar() {
     return `
+      (global.get $pointer)
       (call $getChar)
+      (i32.store)
     `;
   }
 
