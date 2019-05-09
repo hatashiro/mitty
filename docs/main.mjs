@@ -9,7 +9,7 @@ const $input = {
   bf: document.querySelector("#bf"),
   wat: document.querySelector("#wat"),
   example: document.querySelector("#example"),
-  input: document.querySelector("#input"),
+  input: document.querySelector("#input")
 };
 
 const $button = {
