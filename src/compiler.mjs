@@ -68,7 +68,7 @@ class Compiler {
           ${nodes.map(this.generate).join("\n")}
           )
 
-        (start $main)
+        (export "main" (func $main))
       )
     `;
   }
