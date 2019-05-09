@@ -5,12 +5,6 @@
 Mitty is a [Brain*uck](https://en.wikipedia.org/wiki/Brainfuck) to
 [WASM](https://webassembly.org/) compiler and runtime.
 
-## Requirements
-
-The following requirements should be preinstalled to build WABT.
-
-- [CMake](https://cmake.org/) 3.2 or higher
-
 ## Demo
 
 [<img alt="demo" src="https://asciinema.org/a/l4EKz9FWcvNQ02x2QO5lbkdbV.svg" width="480">](https://asciinema.org/a/l4EKz9FWcvNQ02x2QO5lbkdbV)
