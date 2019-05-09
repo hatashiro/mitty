@@ -4,15 +4,13 @@ import { optimize } from "./optimizer.mjs";
 const BUFFER_SIZE = 65536; // 32 * 64 KiB
 
 class Interpreter {
-  buffer = new Uint32Array(BUFFER_SIZE);
-  pointer = 0;
-
-  run = node => {
-    this[node.type](node.data);
-  };
-
   constructor(lib) {
     this.lib = lib;
+
+    this.buffer = new Uint32Array(BUFFER_SIZE);
+    this.pointer = 0;
+
+    this.run = node => this[node.type](node.data);
   }
 
   increaseBufferSize() {

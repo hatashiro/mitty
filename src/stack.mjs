@@ -1,5 +1,7 @@
 export class Stack {
-  arr = [];
+  constructor() {
+    this.arr = [];
+  }
 
   get size() {
     return this.arr.length;
