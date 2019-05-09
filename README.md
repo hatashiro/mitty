@@ -7,7 +7,7 @@ Mitty is a [Brain*uck](https://en.wikipedia.org/wiki/Brainfuck) to
 
 ## Demo
 
-[<img alt="demo" src="https://asciinema.org/a/l4EKz9FWcvNQ02x2QO5lbkdbV.svg" width="480">](https://asciinema.org/a/l4EKz9FWcvNQ02x2QO5lbkdbV)
+https://utatti.github.io/mitty/
 
 ## How to use
 
