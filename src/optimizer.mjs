@@ -1,4 +1,4 @@
-import * as parser from "./parser";
+import * as parser from "./parser.mjs";
 
 export function optimize(node) {
   if (node.type === "Program") {

@@ -1,6 +1,6 @@
-import { parse } from "./parser";
-import { optimize } from "./optimizer";
-import * as io from "./io";
+import { parse } from "./parser.mjs";
+import { optimize } from "./optimizer.mjs";
+import * as io from "./io.mjs";
 
 const BUFFER_SIZE = 65536; // 32 * 64 KiB
 

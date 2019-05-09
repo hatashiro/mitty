@@ -1,6 +1,6 @@
-import { parse } from "./parser";
-import { optimize } from "./optimizer";
-import { wat2wasm } from "./wabt";
+import { parse } from "./parser.mjs";
+import { optimize } from "./optimizer.mjs";
+import { wat2wasm } from "./wabt.mjs";
 
 class Compiler {
   generate = node => this[node.type](node.data);

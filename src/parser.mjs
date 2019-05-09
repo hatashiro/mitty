@@ -1,4 +1,4 @@
-import { Stack } from "./stack";
+import { Stack } from "./stack.mjs";
 
 export function node(type, pos, data = null) {
   return { type, data, pos: [...pos] };
