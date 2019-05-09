@@ -1,6 +1,5 @@
 import { parse } from "./parser.mjs";
 import { optimize } from "./optimizer.mjs";
-import * as io from "./io.mjs";
 
 const BUFFER_SIZE = 65536; // 32 * 64 KiB
 
@@ -77,7 +76,7 @@ class Interpreter {
   }
 }
 
-export function interpret(code, lib = io) {
+export function interpret(code, lib) {
   const program = optimize(parse(code));
   const interpreter = new Interpreter(lib);
   interpreter.run(program);

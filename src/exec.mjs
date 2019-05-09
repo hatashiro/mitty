@@ -1,5 +1,3 @@
-import * as io from "./io.mjs";
-
-export async function exec(buffer, lib = io) {
+export async function exec(buffer, lib) {
   await WebAssembly.instantiate(buffer, { lib });
 }

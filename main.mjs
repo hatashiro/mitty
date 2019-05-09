@@ -3,6 +3,7 @@ import { beautify } from "s-exify/module";
 import { interpret } from "./src/interpreter";
 import { compile } from "./src/compiler";
 import { exec } from "./src/exec";
+import * as io from "./io.mjs";
 
 const commands = {
   async interpret(path) {
@@ -11,7 +12,7 @@ const commands = {
     }
 
     const content = await afs.readFile(path, "utf-8");
-    interpret(content);
+    interpret(content, io);
   },
 
   async compile(input, output) {
@@ -35,7 +36,7 @@ const commands = {
     }
 
     const content = await afs.readFile(input);
-    await exec(content);
+    await exec(content, io);
   }
 };
 
