@@ -1,7 +1,7 @@
-import { compile } from "./mitty/compiler.mjs";
-import { exec } from "./mitty/exec.mjs";
-import { createIO } from "./src/browser-io.mjs";
-import * as examples from "./src/examples.mjs";
+import { createIO } from "./browser-io.mjs";
+import * as examples from "./examples.mjs";
+import { compile } from "./src/compiler.mjs";
+import { exec } from "./src/exec.mjs";
 
 import { beautify } from "https://unpkg.com/s-exify@0.3.2/dist/index.mjs";
 

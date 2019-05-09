@@ -22,7 +22,10 @@
     "test:interpreter": "node test interpreter",
     "test:compiler": "node test compiler",
     "test": "npm run format:check && npm run test:interpreter && npm run test:compiler",
-    "release": "npm publish --access public"
+    "release": "npm publish --access public",
+    "demo:src": "mkdir -p demo/src && cp src/*.mjs demo/src/",
+    "demo": "npm run demo:src && cd demo && suzu",
+    "demo:publish": "npm run demo:src && gh-pages -d demo"
   },
   "dependencies": {
     "esm": "^3.2.22",
@@ -30,7 +33,9 @@
     "wabt": "^1.0.10"
   },
   "devDependencies": {
-    "prettier": "^1.17.0"
+    "gh-pages": "^2.0.1",
+    "prettier": "^1.17.0",
+    "suzu": "^0.1.1"
   },
   "license": "MIT"
 }
