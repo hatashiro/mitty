@@ -1,3 +1,6 @@
+// Set global WabtModule
+global.WabtModule = require("wabt");
+
 require = require("esm")(module);
 
 const cluster = require("cluster");

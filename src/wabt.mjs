@@ -1,6 +1,4 @@
-import wabt from "wabt";
-
-const { parseWat } = wabt();
+const { parseWat } = WabtModule();
 
 const FILENAME = "main.wat";
 
