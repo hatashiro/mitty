@@ -1,9 +1,9 @@
 import { promises as afs } from "fs";
-import { beautify } from "s-exify/module";
+import { beautify } from "s-exify/dist/index.mjs";
 import { interpret } from "./src/interpreter";
 import { compile } from "./src/compiler";
 import { exec } from "./src/exec";
-import * as io from "./io.mjs";
+import * as io from "./src/io.mjs";
 
 const commands = {
   async interpret(path) {
