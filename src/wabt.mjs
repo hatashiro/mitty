@@ -1,20 +1,16 @@
-import tmp from "tmp";
-import { execSync } from "child_process";
-import { dirname, resolve } from "path";
-import { writeFileSync, readFileSync } from "fs";
+import wabt from "wabt";
 
-const tempFile = ext => tmp.fileSync({ mode: 0o644, postfix: `.${ext}` }).name;
+const { parseWat } = wabt();
 
-const root = resolve(dirname(new URL(import.meta.url).pathname), "..");
+const FILENAME = "main.wat";
 
-const bin = {
-  wat2wasm: resolve(root, "wabt/bin/wat2wasm")
-};
-
-export function wat2wasm(watStr) {
-  const watFile = tempFile("wat");
-  const wasmFile = tempFile("wasm");
-  writeFileSync(watFile, watStr);
-  execSync(`${bin.wat2wasm} ${watFile} -o ${wasmFile}`);
-  return readFileSync(wasmFile);
+export function wat2wasm(wat) {
+  const module = parseWat(FILENAME, wat);
+  const binary = module.toBinary({
+    log: false,
+    canonicalize_lebs: false,
+    relocatable: false,
+    write_debug_names: false
+  });
+  return binary.buffer;
 }

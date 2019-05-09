@@ -22,14 +22,12 @@
     "test:interpreter": "node test interpreter",
     "test:compiler": "node test compiler",
     "test": "npm run format:check && npm run test:interpreter && npm run test:compiler",
-    "wabt": "./wabt.sh",
-    "postinstall": "npm run wabt",
     "release": "npm publish --access public"
   },
   "dependencies": {
     "esm": "^3.2.22",
     "s-exify": "^0.3.1",
-    "tmp": "^0.1.0"
+    "wabt": "^1.0.10"
   },
   "devDependencies": {
     "prettier": "^1.17.0"
