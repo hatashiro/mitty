@@ -1,0 +1,40 @@
+textarea {
+  font-family: 'Fira Mono', monospace;
+  font-size: 13px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto 10px;
+}
+
+.half {
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.half h2 {
+  margin: 0 0 3px;
+}
+
+.half textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 3px;
+  resize: vertical;
+  min-height: 200px;
+  white-space: pre;
+}
+
+.half .controls select {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 50%;
+}
+
+.half .controls input {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 50%;
+}
