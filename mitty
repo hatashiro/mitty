@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+node --experimental-modules --no-warnings index.mjs "$@"

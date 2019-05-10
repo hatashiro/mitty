@@ -1,6 +1,3 @@
-#!/bin/sh
-":" //; exec /usr/bin/env node --experimental-modules --no-warnings "$0" "$@"
-
 import WabtModule from "wabt";
 import cluster from "cluster";
 import fs from "fs";
@@ -69,8 +66,10 @@ if (cluster.isMaster) {
     }
   });
 } else {
-  (async function () {
-    const { default: task } = await import(`./test/runner/${process.argv[2]}.mjs`);
+  (async function() {
+    const { default: task } = await import(
+      `./test/runner/${process.argv[2]}.mjs`
+    );
 
     process.on("message", async testName => {
       try {

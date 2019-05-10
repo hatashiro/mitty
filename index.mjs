@@ -1,6 +1,3 @@
-#!/bin/sh
-":" //; exec /usr/bin/env node --experimental-modules --no-warnings "$0" "$@"
-
 import WabtModule from "wabt";
 import { promises as afs } from "fs";
 import { beautify } from "s-exify/dist/index.mjs";
