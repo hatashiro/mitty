@@ -46,11 +46,13 @@ $input.bf.addEventListener("input", () => {
 });
 
 let terminal = null;
+Terminal.applyAddon(fit);
 function createTerminal() {
   if (terminal) terminal.destroy();
 
   terminal = new Terminal({ convertEol: true });
   terminal.open($terminal);
+  terminal.fit();
 
   return terminal;
 }
