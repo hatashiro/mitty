@@ -37,6 +37,10 @@ mitty compile hello.b hello.wasm
 mitty exec hello.wasm
 ```
 
+## Requirement
+
+Node.js >= 12 is needed to run ES Modules natively.
+
 ## Test cases
 
 The test cases in the [/test](test) directory are copied from the following

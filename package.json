@@ -1,6 +1,9 @@
 {
   "name": "@utatti/mitty",
   "version": "0.3.0",
+  "engines": {
+    "node": ">=12"
+  },
   "description": "A Brain*uck to WASM compiler",
   "homepage": "https://github.com/utatti/mitty",
   "repository": {
@@ -11,16 +14,17 @@
     "brainfuck",
     "wasm"
   ],
-  "main": "index.js",
-  "module": "main.mjs",
+  "type": "module",
+  "main": "index.mjs",
+  "module": "index.mjs",
   "bin": {
-    "mitty": "index.js"
+    "mitty": "index.mjs"
   },
   "scripts": {
     "format": "prettier --write '**/*.{json,js,mjs}'",
     "format:check": "prettier --check '**/*.{json,js,mjs}'",
-    "test:interpreter": "node test interpreter",
-    "test:compiler": "node test compiler",
+    "test:interpreter": "./test.mjs interpreter",
+    "test:compiler": "./test.mjs compiler",
     "test": "npm run format:check && npm run test:interpreter && npm run test:compiler",
     "release": "npm publish --access public",
     "demo:src": "mkdir -p demo/src && cp src/*.mjs demo/src/",
@@ -28,7 +32,6 @@
     "demo:publish": "npm run demo:src && gh-pages -d demo"
   },
   "dependencies": {
-    "esm": "^3.2.22",
     "s-exify": "^0.3.2",
     "wabt": "^1.0.10"
   },

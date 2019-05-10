@@ -1,6 +1,6 @@
 import { strictEqual } from "assert";
-import { interpret } from "../../src/interpreter";
-import { TestIO } from "./test-io";
+import { interpret } from "../../src/interpreter.mjs";
+import { TestIO } from "./test-io.mjs";
 
 export default function(test, input, output) {
   const io = new TestIO(input);

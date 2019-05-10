@@ -1,14 +1,17 @@
-// Set global WabtModule
-global.WabtModule = require("wabt");
+#!/bin/sh
+":" //; exec /usr/bin/env node --experimental-modules --no-warnings "$0" "$@"
 
-require = require("esm")(module);
+import WabtModule from "wabt";
+import cluster from "cluster";
+import fs from "fs";
+import os from "os";
+import path from "path";
 
-const cluster = require("cluster");
-const fs = require("fs");
-const os = require("os");
-const path = require("path");
+global.WabtModule = WabtModule;
 
 const TIMEOUT = 20000;
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const tests = fs
   .readdirSync(path.join(__dirname, "test"))
@@ -47,9 +50,10 @@ if (cluster.isMaster) {
     cluster.fork();
   }
 
-  cluster.on("online", worker => dispatch(worker));
   cluster.on("message", (worker, message) => {
-    if (message.type === "next") {
+    if (message.type === "ready") {
+      dispatch(worker);
+    } else if (message.type === "next") {
       process.stdout.write(".");
       dispatch(worker);
     } else if (message.type === "fail") {
@@ -65,18 +69,23 @@ if (cluster.isMaster) {
     }
   });
 } else {
-  const test = require(`./test/runner/${process.argv[2]}.mjs`);
-  process.on("message", async testName => {
-    try {
-      await test.default(
-        await readTestFile(testName + ".b"),
-        await readTestFile(testName + ".in"),
-        await readTestFile(testName + ".out")
-      );
-    } catch (err) {
-      process.send({ type: "fail", test: testName, text: err.message });
-    } finally {
-      process.send({ type: "next" });
-    }
-  });
+  (async function () {
+    const { default: task } = await import(`./test/runner/${process.argv[2]}.mjs`);
+
+    process.on("message", async testName => {
+      try {
+        await task(
+          await readTestFile(testName + ".b"),
+          await readTestFile(testName + ".in"),
+          await readTestFile(testName + ".out")
+        );
+      } catch (err) {
+        process.send({ type: "fail", test: testName, text: err.message });
+      } finally {
+        process.send({ type: "next" });
+      }
+    });
+
+    process.send({ type: "ready" });
+  })();
 }

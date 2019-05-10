@@ -1,9 +1,15 @@
+#!/bin/sh
+":" //; exec /usr/bin/env node --experimental-modules --no-warnings "$0" "$@"
+
+import WabtModule from "wabt";
 import { promises as afs } from "fs";
 import { beautify } from "s-exify/dist/index.mjs";
-import { interpret } from "./src/interpreter";
-import { compile } from "./src/compiler";
-import { exec } from "./src/exec";
+import { interpret } from "./src/interpreter.mjs";
+import { compile } from "./src/compiler.mjs";
+import { exec } from "./src/exec.mjs";
 import * as io from "./src/io.mjs";
+
+global.WabtModule = WabtModule;
 
 const commands = {
   async interpret(path) {
